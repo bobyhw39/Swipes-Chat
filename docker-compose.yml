@@ -1,0 +1,17 @@
+version: '3.7'
+service:
+  Swipes-Chat:
+    environment:
+      - CONTEXT-PATH=/blavl
+      - PORT=8080
+      - DRIVER=com.mysql.jdbc.Driver
+      - DB_URL=jdbc::mysql://ipaddress:3306/namadb?autoReconnect=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=password
+    image: namaimage
+    build:
+      context: ./
+      dockerFile: dockerfile
+    ports:
+      - "9001:8282"
+    restart: always
