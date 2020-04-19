@@ -31,13 +31,19 @@ public class ChatRESTController {
 
 final private SimpUserRegistry simpUserRegistry = new DefaultSimpUserRegistry();
 
+//    @GetMapping("/ws/users")
+//    public List<String> connectedEquipments() {
+//        return simpUserRegistry
+//                .getUsers()
+//                .stream()
+//                .map(SimpUser::getName)
+//                .collect(Collectors.toList());
+//    }
     @GetMapping("/ws/users")
-    public List<String> connectedEquipments() {
-        return simpUserRegistry
-                .getUsers()
-                .stream()
-                .map(SimpUser::getName)
-                .collect(Collectors.toList());
+    public Set<SimpUser> connectedEquipments() {
+        System.out.println("check here");
+        System.out.println(chatMessageServices.getUsers().toString());
+        return chatMessageServices.getUsers();
     }
 
     ////////////////////////Message queries DB controller/////////////////////////////////////

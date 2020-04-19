@@ -19,6 +19,8 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 @Controller
 @CrossOrigin(origins = "*")
 public class ChatController {
@@ -31,17 +33,26 @@ public class ChatController {
 
     ////////////////////////Group Chat Controller/////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+    @MessageMapping("/chat/{roomId}/sendMessage")
+//    @SendTo("/topic/public")
+    public ChatMessage sendMessage(@DestinationVariable String roomId,@Payload ChatMessage chatMessage) {
         chatMessageServices.saveChat(chatMessage);
+        simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
         return chatMessage;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+    @MessageMapping("/chat/{roomId}/addUser")
+//    @SendTo("/topic/public")
+    public ChatMessage addUser(@DestinationVariable String roomId,@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        String currentRoomId = (String) headerAccessor.getSessionAttributes().put("room_id", roomId);
+        if (currentRoomId != null) {
+            ChatMessage leaveMessage = new ChatMessage();
+            leaveMessage.setType(ChatMessage.MessageType.LEAVE);
+            leaveMessage.setSender(chatMessage.getSender());
+            simpMessagingTemplate.convertAndSend(format("/channel/%s", currentRoomId), leaveMessage);
+        }
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
         return chatMessage;
     }
 

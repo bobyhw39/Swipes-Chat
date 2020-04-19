@@ -18,8 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
-
-        registry.enableSimpleBroker("/topic","/queue");
+        registry.enableSimpleBroker("/topic","/channel");
 
 //        registry.enableStompBrokerRelay("/topic")
 //                .setRelayHost("localhost")
@@ -27,4 +26,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 //                .setClientLogin("guest")
 //                .setClientPasscode("guest");
     }
+
 }
