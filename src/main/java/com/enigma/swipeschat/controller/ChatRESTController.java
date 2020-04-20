@@ -7,10 +7,7 @@ import org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler;
 import org.springframework.messaging.simp.broker.SubscriptionRegistry;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.socket.messaging.DefaultSimpUserRegistry;
 
 import java.util.List;
@@ -49,9 +46,9 @@ final private SimpUserRegistry simpUserRegistry = new DefaultSimpUserRegistry();
     ////////////////////////Message queries DB controller/////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping("/getAllChat")
-    public List<ChatMessage> getAllChat(){
-        return chatMessageServices.getHistory();
+    @GetMapping("/getAllChat/{room}")
+    public List<ChatMessage> getAllChat(@PathVariable String room){
+        return chatMessageServices.getHistory(room);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////

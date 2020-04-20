@@ -1,10 +1,14 @@
 package com.enigma.swipeschat.services;
 
+import com.enigma.swipeschat.dto.UserGetDTO;
 import com.enigma.swipeschat.entity.ChatMessage;
+import com.enigma.swipeschat.entity.User;
 import com.enigma.swipeschat.repository.ChatRepository;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
@@ -17,6 +21,8 @@ import java.util.Set;
 @Service
 public class ChatMessageServices {
 
+    private static final Logger logger = LoggerFactory.getLogger(ChatMessageServices.class);
+
     @Autowired
     ChatRepository chatRepository;
 
@@ -27,12 +33,15 @@ public class ChatMessageServices {
         chatRepository.save(chatMessage);
     }
 
-    public List<ChatMessage> getHistory(){
-        return chatRepository.findAll();
+    public List<ChatMessage> getHistory(String room){
+        logger.info("get history of " + room);
+        return chatRepository.findAllByRoom(room);
     }
 
     public Set<SimpUser> getUsers() {
         return userRegistry.getUsers();
     }
+
+
 
 }

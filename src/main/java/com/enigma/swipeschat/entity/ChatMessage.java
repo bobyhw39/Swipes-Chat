@@ -29,8 +29,8 @@ public class ChatMessage {
     @Column(name = "sender", nullable = false)
     private String sender;
 
-    @Column(name = "receiver")
-    private String receiver;
+    @Column(name = "room")
+    private String room;
 
     @Column(name = "date", nullable = false)
     private LocalDateTime dateTime= LocalDateTime.now();;
