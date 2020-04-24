@@ -10,6 +10,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
@@ -18,7 +20,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/topic","/channel");
+        registry.enableSimpleBroker("/queue", "/topic", "/user");   // Enables a simple in-memory broker
+        registry.setUserDestinationPrefix("/user");
+//        registry.enableSimpleBroker("/topic","/channel");
 
 //        registry.enableStompBrokerRelay("/topic")
 //                .setRelayHost("localhost")
