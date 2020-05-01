@@ -2,6 +2,7 @@ package com.enigma.swipeschat.repository;
 
 import com.enigma.swipeschat.entity.Group;
 import com.enigma.swipeschat.entity.User;
+import com.enigma.swipeschat.entity.ChatMessage;
 import java.util.Optional;
 import java.util.List;
 

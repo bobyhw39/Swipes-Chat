@@ -6,6 +6,7 @@ import com.enigma.swipeschat.exceptions.NotFoundException;
 import com.enigma.swipeschat.services.ChatMessageServices;
 import com.enigma.swipeschat.services.UserServices;
 import com.enigma.swipeschat.services.GroupServices;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -42,23 +43,24 @@ public class ChatController {
     @Autowired
     GroupServices groupServices;
 
+    private Gson gson = new Gson();
 
     ////////////////////////Group Chat Controller/////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    @MessageMapping("/chat/{roomId}/sendMessage")
+    @MessageMapping("/ws/group/{roomId}/sendMessage")
 //    @SubscribeMapping
 //    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@DestinationVariable Long roomId,@Payload ChatMessage chatMessage) {
+    public ChatMessage sendMessageGroup(@DestinationVariable String roomId,@Payload ChatMessage chatMessage) {
 
-        if(userServices.getUser(chatMessage.getSender())==null){
-            throw new NotFoundException("User " + chatMessage.getSender() +" not found");
-        }
+//        if(userServices.getUser(chatMessage.getSender())==null){
+//            throw new NotFoundException("User " + chatMessage.getSender() +" not found");
+//        }
+//
+//        if(groupServices.getGroup(roomId)==null){
+//            throw new NotFoundException("Group " + roomId +" not found");
+//        }
 
-        if(groupServices.getGroup(roomId)==null){
-            throw new NotFoundException("Group " + roomId +" not found");
-        }
-
-        Group group = groupServices.getGroup(roomId);
+        Group group = groupServices.getGroup(Long.parseLong(roomId));
         chatMessage.setRoom(group);
         chatMessageServices.saveChat(chatMessage);
         simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
@@ -67,10 +69,10 @@ public class ChatController {
     }
 
 
-    @MessageMapping("/chat/{roomId}/addUser")
+    @MessageMapping("/ws/group/{roomId}/addUser")
 //    @SubscribeMapping("/chat/{roomId}/addUser")
 //    @SendTo("/topic/public")
-    public ChatMessage addUser(@DestinationVariable Long roomId,@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+    public ChatMessage addUserGroup(@DestinationVariable Long roomId,@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
 
         if(userServices.getUser(chatMessage.getSender())==null){
             throw new NotFoundException("User " + chatMessage.getSender() +" not found");
@@ -105,17 +107,43 @@ public class ChatController {
     ///////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 
+//    ////////////////////////Private Chat Controller///////////////////////////////////
+//    //////////////////////////////////////////////////////////////////////////////////
+//
+//    @MessageMapping("/sendPrivateMessage")
+////    @SendTo("/queue/reply")
+//    public void sendPrivateMessage(@Payload ChatMessage chatMessage) {
+//        simpMessagingTemplate.convertAndSendToUser(chatMessage.getReceiver().trim(), "/reply", chatMessage);
+//        chatMessageServices.saveChat(chatMessage);
+//        System.out.println("send message");
+//        System.out.println(chatMessage.toString());
+//        //return chatMessage;
+//    }
+//
+//    @MessageMapping("/addPrivateUser")
+//    @SendTo("/queue/reply")
+//    public ChatMessage addPrivateUser(@Payload ChatMessage chatMessage,
+//                                      SimpMessageHeaderAccessor headerAccessor) {
+//        // Add user in web socket session
+//        headerAccessor.getSessionAttributes().put("private-username", chatMessage.getSender());
+//        System.out.println("user join");
+//        System.out.println(chatMessage.toString());
+//        return chatMessage;
+//    }
+//
+//    ///////////////////////////////////////////////////////////////////////////////////
+//    //////////////////////////////////////////////////////////////////////////////////
+
     ////////////////////////Private Chat Controller///////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 
-    @MessageMapping("/sendPrivateMessage")
-//    @SendTo("/queue/reply")
-    public void sendPrivateMessage(@Payload ChatMessage chatMessage) {
-        simpMessagingTemplate.convertAndSendToUser(chatMessage.getReceiver().trim(), "/reply", chatMessage);
-        chatMessageServices.saveChat(chatMessage);
-        System.out.println("send message");
-        System.out.println(chatMessage.toString());
-        //return chatMessage;
+    @MessageMapping("/ws/{to}")
+    public void sendMessage(@DestinationVariable String to, ChatMessage message) {
+        System.out.println("handling send message: " + message + " to: " + to);
+            simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
+            chatMessageServices.saveChat(message);
+//        System.out.println("send message");
+//        System.out.println(chatMessage.toString());
     }
 
     @MessageMapping("/addPrivateUser")

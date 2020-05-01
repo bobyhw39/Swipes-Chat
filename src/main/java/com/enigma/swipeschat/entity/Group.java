@@ -68,18 +68,22 @@ public class Group {
         this.description = description;
     }
 
+    @JsonIgnore
     public List<User> getUser() {
         return user;
     }
 
+    @JsonProperty
     public void setUser(List<User> user) {
         this.user = user;
     }
 
+    @JsonIgnore
     public List<ChatMessage> getChatMessages() {
         return chatMessages;
     }
 
+    @JsonProperty
     public void setChatMessages(List<ChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }

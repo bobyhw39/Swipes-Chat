@@ -42,7 +42,7 @@ public class UserServices {
         if(validateUser!=null){
             throw new BadRequestException("User  : " + userPostDTO.getUsername() + " Found Cannot Create Account");
         }
-        User user = new User(null,userPostDTO.getEmail(),userPostDTO.getUsername(),userPostDTO.getPassword(),userPostDTO.getFullName(),null,null);
+        User user = new User(null,userPostDTO.getEmail(),userPostDTO.getUsername(),userPostDTO.getPassword(),userPostDTO.getFullName(),null);
         userRepository.save(user);
         return user;
     }
@@ -55,6 +55,7 @@ public class UserServices {
         return userGetDTO;
     }
 
+
     public List<UserGetDTO> searchUser(String username){
         List<UserGetDTO> userGetDTOList = Lists.newArrayList();
         List<User> users = userRepository.findByUsernameContainsIgnoreCase(username);
@@ -66,45 +67,6 @@ public class UserServices {
         logger.info("search user "+ username);
         return userGetDTOList;
     }
-
-    public User addFriend(UserPostFriendsDTO userPostFriendsDTO){
-        User searchFriend = userRepository.findByUsername(userPostFriendsDTO.getFriend());
-        User abc = userRepository.findByUsername(userPostFriendsDTO.getUser());
-        User users = userRepository.getOne(abc.getId());
-        User friends = userRepository.findByUsername(searchFriend.getUsername());
-        users.getFriends().add(friends);
-        userRepository.save(users);
-        return users;
-    }
-
-    public List<UserGetDTO> listFriends(String username){
-        List<UserGetDTO> userGetDTOS = Lists.newArrayList();
-        User users = userRepository.findByUsername(username);
-        System.out.println(users.toString());
-//        users.getFriends();
-        for (User user: users.getFriends()) {
-            ModelMapper modelMapper = new ModelMapper();
-            UserGetDTO userGetDTO = modelMapper.map(user,UserGetDTO.class);
-            userGetDTOS.add(userGetDTO);
-        }
-        return userGetDTOS;
-    }
-
-    public String deleteFriend(UserDeleteFriendsDTO userDeleteFriendsDTO){
-        User user = userRepository.findByUsername(userDeleteFriendsDTO.getUser());
-        User friend = userRepository.findByUsername(userDeleteFriendsDTO.getFriend());
-        User fre = userRepository.getOne(friend.getId());
-        for (User fr : user.getFriends()) {
-            if(fr.equals(fre)) {
-                System.out.println("success remove "+fre.getUsername());
-                user.getFriends().remove(user.getFriends().indexOf(fre));
-                userRepository.save(user);
-                return "Success delete";
-            }
-        }
-        return  "gagal govlok";
-    }
-
 
     public ErrorDetails login(UserPostLoginDTO userPostLoginDTO){
         User searchUser = userRepository.findByUsername(userPostLoginDTO.getUsername());

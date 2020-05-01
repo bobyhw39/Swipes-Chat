@@ -4,6 +4,7 @@ package com.enigma.swipeschat.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,18 +41,24 @@ public class User {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "user")
+//    private List<Events> events;
+
+
 //    @ManyToMany(cascade={CascadeType.ALL})
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_has_friends",
-            joinColumns = { @JoinColumn(name = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "id_friends") }
-    )
-    private List<User> friends;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "user_has_friends",
+//            joinColumns = { @JoinColumn(name = "id") },
+//            inverseJoinColumns = { @JoinColumn(name = "id_friends") }
+//    )
+//    private List<User> friends;
 
 
     @ManyToMany(mappedBy = "user")
     private List<Group> groups;
+
 
     public Long getId() {
         return id;
@@ -93,22 +100,30 @@ public class User {
         this.fullName = fullName;
     }
 
+//
+//    @JsonIgnore
+//    public List<User> getFriends() {
+//        return friends;
+//    }
+//
+//    @JsonProperty
+//    public void setFriends(List<User> friends) {
+//        this.friends = friends;
+//    }
 
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
-
-    @JsonIgnore
     public List<Group> getGroups() {
         return groups;
     }
 
-    @JsonProperty
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
+
+//    public List<Events> getEvents() {
+//        return events;
+//    }
+//
+//    public void setEvents(List<Events> events) {
+//        this.events = events;
+//    }
 }

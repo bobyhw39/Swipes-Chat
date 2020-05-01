@@ -24,29 +24,6 @@ public class ChatRESTController {
     @Autowired
     ChatMessageServices chatMessageServices;
 
-//    private final SimpUserRegistry simpUserRegistry;
-//
-//    public ChatRESTController(SimpUserRegistry simpUserRegistry) {
-//        this.simpUserRegistry = simpUserRegistry;
-//    }
-
-final private SimpUserRegistry simpUserRegistry = new DefaultSimpUserRegistry();
-
-//    @GetMapping("/ws/users")
-//    public List<String> connectedEquipments() {
-//        return simpUserRegistry
-//                .getUsers()
-//                .stream()
-//                .map(SimpUser::getName)
-//                .collect(Collectors.toList());
-//    }
-    @GetMapping("/ws/users")
-    public Set<SimpUser> connectedEquipments() {
-        System.out.println("check here");
-        System.out.println(chatMessageServices.getUsers().toString());
-        return chatMessageServices.getUsers();
-    }
-
     ////////////////////////Message queries DB controller/////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 
@@ -61,6 +38,13 @@ final private SimpUserRegistry simpUserRegistry = new DefaultSimpUserRegistry();
     public List<ChatMessage> getAllChatPrivate(@PathVariable String user1,@PathVariable String user2){
         return chatMessageServices.getHistoryPrivate(user1,user2);
     }
+
+    @GetMapping("/lastchat/{username}")
+    @ApiOperation(value = "View a last chat", response = ChatMessage.class)
+    public List<ChatMessage> lastChat(@PathVariable String username){
+        return chatMessageServices.getLastChat(username);
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
 

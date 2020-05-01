@@ -15,6 +15,7 @@ import com.enigma.swipeschat.dto.UserPostLoginDTO;
 import com.enigma.swipeschat.entity.User;
 
 import javax.validation.Valid;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -27,8 +28,9 @@ public class UserRESTController {
 
     @PostMapping("")
     @ApiOperation(value = "Create a account", response = UserPostDTO.class)
-    public User createUser(@RequestBody UserPostDTO userPostDTO){
-        return userServices.createUser(userPostDTO);
+    public ErrorDetails createUser(@RequestBody UserPostDTO userPostDTO){
+        userServices.createUser(userPostDTO);
+        return new ErrorDetails(new Date(System.currentTimeMillis()),"Created account success","200","user");
     }
 
     @ApiOperation(value = "View a info user", response = UserGetDTO.class)
@@ -41,25 +43,6 @@ public class UserRESTController {
     @ApiOperation(value = "Search a User", response = UserGetDTO.class)
     public List<UserGetDTO> searchUser (@RequestParam String username){
         return userServices.searchUser(username);
-    }
-
-    @PostMapping("/addFriend")
-    @ApiOperation(value = "Add a friend", response = UserPostFriendsDTO.class)
-    public String addFriend(@RequestBody UserPostFriendsDTO userPostFriendsDTO){
-        userServices.addFriend(userPostFriendsDTO);
-        return "add friend success";
-    }
-
-    @GetMapping("/friends/{username}")
-    @ApiOperation(value = "Show list friends from that user", response = UserGetDTO.class)
-    public List<UserGetDTO> listFriends(@Valid @PathVariable String username){
-        return userServices.listFriends(username);
-    }
-
-    @DeleteMapping("/friends/delete/")
-    @ApiOperation(value = "Unfriend from that user", response = UserDeleteFriendsDTO.class)
-    public String delete(@RequestBody UserDeleteFriendsDTO user){
-        return userServices.deleteFriend(user);
     }
 
     @PostMapping("/login")

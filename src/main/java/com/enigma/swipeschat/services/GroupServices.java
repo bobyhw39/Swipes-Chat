@@ -1,5 +1,6 @@
 package com.enigma.swipeschat.services;
 
+import com.enigma.swipeschat.dto.UserGetDTO;
 import com.enigma.swipeschat.exceptions.NotFoundException;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.Lists;
@@ -27,6 +28,24 @@ public class GroupServices {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserServices userServices;
+
+    //////////////////////////////////////////////////////////////////////
+    ///Functions
+    /////////////////////////////////////////////////////////////////////
+
+    public void checkUser(String user){
+        UserGetDTO check = userServices.getUser(user);
+        if(check == null){
+            throw new NotFoundException("account not found");
+        }
+
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
+
     public Group getGroup(Long id){
         Group group = groupRepository.getOne(id);
         return group;
@@ -34,6 +53,7 @@ public class GroupServices {
 
     public Group addUser(GroupPostUserDTO groupPostUserDTO){
         Group group = getGroup(groupPostUserDTO.getIdGroup());
+        checkUser(groupPostUserDTO.getUsername());
         User user = userRepository.findByUsername(groupPostUserDTO.getUsername());
         if(user == null){
             throw new NotFoundException("account not found. check your username and password");

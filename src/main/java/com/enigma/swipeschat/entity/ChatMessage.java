@@ -2,6 +2,7 @@ package com.enigma.swipeschat.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.Comparator;
 @Setter
 @Getter
 @Entity
+@Proxy(lazy = false)
 @ToString
 @Table(name="tbl_chatmessage")
 public class ChatMessage {

@@ -15,9 +15,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="tbl_chatchannel")
 public class ChatChannel {
+
     @Id
-    @NotNull
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "user_one")

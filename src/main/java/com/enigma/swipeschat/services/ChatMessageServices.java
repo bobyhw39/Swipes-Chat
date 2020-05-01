@@ -79,6 +79,11 @@ public class ChatMessageServices {
         return chatToSort;
     }
 
+    public List<ChatMessage> getLastChat(String username){
+        List<ChatMessage> nx = chatRepository.findAll(username);
+        return nx;
+    }
+
 
     public Set<SimpUser> getUsers() {
         return userRegistry.getUsers();
