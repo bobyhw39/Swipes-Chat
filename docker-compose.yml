@@ -11,7 +11,7 @@ service:
     image: namaimage
     build:
       context: ./
-      dockerFile: dockerfile
+      dockerFile: Dockerfile
     ports:
       - "9001:8282"
     restart: always
