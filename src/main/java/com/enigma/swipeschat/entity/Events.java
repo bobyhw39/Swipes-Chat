@@ -1,7 +1,5 @@
 package com.enigma.swipeschat.entity;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -14,9 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "events")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class Events {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,13 +46,25 @@ public class Events {
         // TODO Auto-generated constructor stub
     }
 
-    public Events(String title, Timestamp startEvent, Timestamp endEvent, String location, String description) {
+    public Events(String title, Timestamp startEvent, Timestamp endEvent, String location, String description, User user) {
         super();
         this.title = title;
         this.startEvent = startEvent;
         this.endEvent = endEvent;
         this.location = location;
         this.description = description;
+        this.user = user;
+    }
+
+    public Events(Long id, String title, Timestamp startEvent, Timestamp endEvent, String location, String description, User user) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.startEvent = startEvent;
+        this.endEvent = endEvent;
+        this.location = location;
+        this.description = description;
+        this.user = user;
     }
 
     public Long getId() {
@@ -103,7 +115,7 @@ public class Events {
         this.description = description;
     }
 
-    //	@JsonIgnore
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -111,4 +123,6 @@ public class Events {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

@@ -9,11 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "content_todo")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class ContentTodo {
 
     @Id
@@ -28,6 +32,7 @@ public class ContentTodo {
 
     @JsonIgnore
     @ManyToOne
+//	@Cascade(CascadeType.PERSIST)
     @JoinColumn(name = "todo_id")
     private Todo todo;
 
@@ -38,6 +43,15 @@ public class ContentTodo {
 
     public ContentTodo(String content, Integer centang) {
         super();
+        this.content = content;
+        this.centang = centang;
+    }
+
+
+
+    public ContentTodo(Long id, String content, Integer centang) {
+        super();
+        this.id = id;
         this.content = content;
         this.centang = centang;
     }
@@ -70,6 +84,5 @@ public class ContentTodo {
     public void setCentang(Integer centang) {
         this.centang = centang;
     }
-
 
 }

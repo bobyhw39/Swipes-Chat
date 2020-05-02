@@ -12,8 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.enigma.swipeschat.entity.User;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "todo")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class Todo {
 
     @Id
@@ -23,7 +30,8 @@ public class Todo {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", orphanRemoval = true )
+    @Cascade(CascadeType.PERSIST)
     private List<ContentTodo> content;
 
     @ManyToOne
@@ -34,9 +42,21 @@ public class Todo {
         // TODO Auto-generated constructor stub
     }
 
-    public Todo(String title) {
+    public Todo(String title, List<ContentTodo> content, User user) {
         super();
         this.title = title;
+        this.content = content;
+        this.user = user;
+    }
+
+
+
+    public Todo(Long id, String title, List<ContentTodo> content, User user) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.user = user;
     }
 
     public Long getId() {
@@ -76,5 +96,7 @@ public class Todo {
     public String toString() {
         return "Todo [title=" + title + ", content=" + content + ", user=" + user + "]";
     }
+
+
 
 }
