@@ -1,6 +1,8 @@
 package com.enigma.swipeschat.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.Proxy;
 
@@ -40,6 +42,8 @@ public class ChatMessage {
 
     @Column(name = "date", nullable = false)
     private LocalDateTime dateTime= LocalDateTime.now();;
+
+
 
     public enum MessageType {
         CHAT,

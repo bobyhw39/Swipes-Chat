@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 
 
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 @Table(name = "tbl_group")
 public class Group {
@@ -40,6 +40,9 @@ public class Group {
             inverseJoinColumns = { @JoinColumn(name = "id_user") }
     )
     List<User> user;
+
+    public Group() {
+    }
 
     @OneToMany(mappedBy = "room")
     private List<ChatMessage> chatMessages;

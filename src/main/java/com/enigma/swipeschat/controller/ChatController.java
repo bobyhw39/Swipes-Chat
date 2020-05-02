@@ -47,7 +47,7 @@ public class ChatController {
 
     ////////////////////////Group Chat Controller/////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
-    @MessageMapping("/ws/group/{roomId}/sendMessage")
+    @MessageMapping("/ws/group/{roomId}/sendMessageGroup")
 //    @SubscribeMapping
 //    @SendTo("/topic/public")
     public ChatMessage sendMessageGroup(@DestinationVariable String roomId,@Payload ChatMessage chatMessage) {
@@ -60,10 +60,11 @@ public class ChatController {
 //            throw new NotFoundException("Group " + roomId +" not found");
 //        }
 
-        Group group = groupServices.getGroup(Long.parseLong(roomId));
-        chatMessage.setRoom(group);
+//        Group group = groupServices.getGroup(Long.parseLong(roomId));
+//        chatMessage.setRoom(group);
         chatMessageServices.saveChat(chatMessage);
-        simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
+//        simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
+        simpMessagingTemplate.convertAndSend( "/topic/messages/group/"+roomId, chatMessage);
         System.out.println(chatMessage);
         return chatMessage;
     }
