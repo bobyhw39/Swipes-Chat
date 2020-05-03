@@ -32,13 +32,13 @@ public class GroupRESTController {
     }
 
     @PostMapping("/addUser")
-    public ErrorDetails addUser(GroupPostUserDTO groupPostUserDTO){
+    public ErrorDetails addUser(@RequestBody GroupPostUserDTO groupPostUserDTO){
         groupServices.addUser(groupPostUserDTO);
         return new ErrorDetails(new Date(System.currentTimeMillis()),"Add "+groupPostUserDTO.getUsername(),"200","group/addUser");
     }
 
     @DeleteMapping("/deleteUser")
-    public ErrorDetails deleteUser(GroupDeleteUserDTO groupDeleteUserDTO){
+    public ErrorDetails deleteUser(@RequestBody GroupDeleteUserDTO groupDeleteUserDTO){
         groupServices.deleteUser(groupDeleteUserDTO);
         return new ErrorDetails(new Date(System.currentTimeMillis()),"Delete "+groupDeleteUserDTO.getUsername(),"200","group/deleteUser");
     }

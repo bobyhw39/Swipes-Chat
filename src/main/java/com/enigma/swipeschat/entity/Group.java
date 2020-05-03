@@ -71,7 +71,6 @@ public class Group {
         this.description = description;
     }
 
-    @JsonIgnore
     public List<User> getUser() {
         return user;
     }

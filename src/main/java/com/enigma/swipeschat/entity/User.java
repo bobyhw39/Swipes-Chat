@@ -111,10 +111,12 @@ public class User {
 //        this.friends = friends;
 //    }
 
+    @JsonIgnore
     public List<Group> getGroups() {
         return groups;
     }
 
+    @JsonProperty
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }

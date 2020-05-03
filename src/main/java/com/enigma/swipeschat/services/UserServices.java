@@ -50,9 +50,8 @@ public class UserServices {
     public UserGetDTO getUser(String username){
         logger.info("get user of " + username);
         User user = userRepository.findByUsername(username);
-        ModelMapper modelMapper = new ModelMapper();
-        UserGetDTO userGetDTO = modelMapper.map(user, UserGetDTO.class);
-        return userGetDTO;
+        System.out.println(user.toString());
+        return new UserGetDTO(user.getId(),user.getEmail(),user.getUsername(),user.getFullName());
     }
 
 

@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class ChatChannel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
