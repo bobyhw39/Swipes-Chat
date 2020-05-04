@@ -75,7 +75,6 @@ public class ChatController {
 
     @MessageMapping("/ws/{to}")
     public void sendMessage(@DestinationVariable String to, ChatMessage message) {
-        System.out.println("handling send message: " + message + " to: " + to);
             simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
             chatMessageServices.saveChat(message);
 
@@ -86,8 +85,6 @@ public class ChatController {
     public ChatMessage addPrivateUser(@Payload ChatMessage chatMessage,
                                       SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("private-username", chatMessage.getSender());
-        System.out.println("user join");
-        System.out.println(chatMessage.toString());
         return chatMessage;
     }
 

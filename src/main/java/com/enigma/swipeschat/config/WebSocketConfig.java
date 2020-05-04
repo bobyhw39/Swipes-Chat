@@ -22,13 +22,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/queue", "/topic", "/user");   // Enables a simple in-memory broker
         registry.setUserDestinationPrefix("/user");
-//        registry.enableSimpleBroker("/topic","/channel");
-
-//        registry.enableStompBrokerRelay("/topic")
-//                .setRelayHost("localhost")
-//                .setRelayPort(61613)
-//                .setClientLogin("guest")
-//                .setClientPasscode("guest");
     }
 
 }

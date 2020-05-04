@@ -5,17 +5,9 @@ import com.enigma.swipeschat.services.ChatMessageServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler;
-import org.springframework.messaging.simp.broker.SubscriptionRegistry;
-import org.springframework.messaging.simp.user.SimpUser;
-import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.socket.messaging.DefaultSimpUserRegistry;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import com.enigma.swipeschat.dto.ChatMessageGetHistoryDTO;
 
 @RestController
 @Api(value = "Swipes Chat Application")
@@ -24,8 +16,6 @@ public class ChatRESTController {
     @Autowired
     ChatMessageServices chatMessageServices;
 
-    ////////////////////////Message queries DB controller/////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/getAllChat/{room}")
     @ApiOperation(value = "View a history chat from group", response = ChatMessage.class)
@@ -44,8 +34,4 @@ public class ChatRESTController {
     public List<ChatMessage> lastChat(@PathVariable String username){
         return chatMessageServices.getLastChat(username);
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
-
 }

@@ -39,13 +39,13 @@ public class TodoController {
     }
 
     @PostMapping("")
-    public Todo create(@RequestBody TodoDto Todo) {
-        return serv.create(Todo);
+    public Todo create(@RequestBody TodoDto todo) {
+        return serv.create(todo);
     }
 
     @PutMapping("/update")
-    public Todo update(@RequestBody Todo Todo) throws BadRequestException {
-        return serv.update(Todo);
+    public Todo update(@RequestBody Todo todo) throws BadRequestException {
+        return serv.update(todo);
     }
 
     @DeleteMapping("/{id}")
