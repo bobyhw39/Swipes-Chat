@@ -49,14 +49,15 @@ public class GroupServicesTest {
     @Autowired
     private UserRepository userRepo;
 
-
+    @Autowired
+    UserServices userServices;
 
     @Rule
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp() {
-        User user = userRepo.findByUsername("dian");
+        User user = new User(Long.valueOf(69l),"test@email.com","test","testpw","test halo",null);
         User user2 = userRepo.findByUsername("dieng");
         List<User> users = new ArrayList<User>();
         users.add(user);
@@ -66,12 +67,13 @@ public class GroupServicesTest {
         groups.add(group);
         Mockito.when(groupRepo.save(group)).thenReturn(group);
         Mockito.when(groupRepo.findByName("swipes")).thenReturn(group);
+        Mockito.when(groupRepo.findByName("swipes")).thenReturn(group);
     }
 
     @Test
     public void whenGroupPostUser_thenShouldReturnSuccess() throws Throwable {
-        GroupPostUserDTO groupDto = new GroupPostUserDTO(Long.valueOf(77),"test123");
-        assertEquals(groupServices.addUser(groupDto).getName(),"test123");
+        GroupPostUserDTO groupDto = new GroupPostUserDTO(Long.valueOf(77),"swipes");
+        assertEquals(groupServices.addUser(groupDto).getName(),"swipes");
     }
 
     @Test(expected = IllegalArgumentException.class)
