@@ -62,9 +62,9 @@ public class TodoServiceTest {
         listContent.add(ct);
 
         TodoDto tdDto = new TodoDto((long) 1, "title", listContent, user);
-        Todo td = new Todo((long) 1, "title", listContent, user);
+        Todo td = new Todo( 1l, "title", listContent, user);
 
-        Mockito.when(repo.getById(td.getId())).thenReturn(td);
+        Mockito.when(repo.getById(1l)).thenReturn(td);
         Mockito.when(servContent.getById(ct.getId())).thenReturn(ct);
 
     }
@@ -75,11 +75,11 @@ public class TodoServiceTest {
         assertEquals(event, serv.getAllList());
     }
 
-//    @Test
-//    public void whenGetById_thenReturnTodo() {
-//        Todo evt = serv.getById((long) 1);
-//        assertEquals(evt.getId(), 1);
-//    }
+    @Test
+    public void whenGetById_thenReturnTodo() {
+        Todo evt = serv.getById((long) 1);
+        assertEquals(evt.getId(), evt);
+    }
 
     @Test
     public void whenCreate_thenReturnTodo() {
