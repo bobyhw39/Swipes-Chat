@@ -50,6 +50,9 @@ public class UserServices {
     public UserGetDTO getUser(String username){
         logger.info("get user of " + username);
         User user = userRepository.findByUsername(username);
+        if(user==null){
+            throw new NotFoundException("account not found");
+        }
         System.out.println(user.toString());
         return new UserGetDTO(user.getId(),user.getEmail(),user.getUsername(),user.getFullName());
     }

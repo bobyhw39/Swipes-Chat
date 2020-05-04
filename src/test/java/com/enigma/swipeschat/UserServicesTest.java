@@ -1,8 +1,11 @@
 package com.enigma.swipeschat;
 
 import com.enigma.swipeschat.dto.UserPostDTO;
+import com.enigma.swipeschat.dto.UserPostLoginDTO;
 import com.enigma.swipeschat.entity.User;
 import com.enigma.swipeschat.exceptions.BadRequestException;
+import com.enigma.swipeschat.exceptions.ErrorDetails;
+import com.enigma.swipeschat.exceptions.NotFoundException;
 import com.enigma.swipeschat.repository.UserRepository;
 import com.enigma.swipeschat.services.UserServices;
 import com.google.common.collect.Lists;
@@ -74,6 +77,24 @@ public class UserServicesTest {
         expectedException.expect(BadRequestException.class);
         userServices.createUser(userPost);
     }
+
+    @Test
+    public void whenUserPostLogin_thenShouldReturn200(){
+        UserPostLoginDTO userPostLoginDTO = new UserPostLoginDTO("test","testpw");
+        assertEquals(userServices.login(userPostLoginDTO).getDetails(), "200");
+    }
+
+    @Test
+    public void whenGetUser_thenShouldReturnUserGetDTO(){
+        assertEquals(userServices.getUser("test").getUsername(), "test");
+    }
+
+    @Test
+    public void whenGetUser_thenShouldReturn404(){
+        expectedException.expect(NotFoundException.class);
+        userServices.getUser("asdasdsa");
+    }
+
 
 
 
