@@ -39,47 +39,46 @@ public class GroupServicesTest {
             return new GroupServices();
         }
 
-        @Autowired
-        GroupServices groupServices;
+    }
+    @Autowired
+    GroupServices groupServices;
 
-        @MockBean
-        GroupRepository groupRepo;
+    @MockBean
+    GroupRepository groupRepo;
 
-        @Autowired
-        private UserRepository userRepo;
+    @Autowired
+    private UserRepository userRepo;
 
 
 
-        @Rule
-        public final ExpectedException expectedException = ExpectedException.none();
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
 
-        @Before
-        public void setUp() {
-            User user = userRepo.findByUsername("dian");
-            User user2 = userRepo.findByUsername("dieng");
-            List<User> users = new ArrayList<User>();
-            users.add(user);
-            users.add(user2);
-            Group group = new Group(Long.valueOf(21),"swipes","grup ini cuman grup final project",users,null);
-            List<Group> groups = Lists.newArrayList();
-            groups.add(group);
-            Mockito.when(groupRepo.save(group)).thenReturn(group);
-            Mockito.when(groupRepo.findByName("swipes")).thenReturn(group);
-        }
+    @Before
+    public void setUp() {
+        User user = userRepo.findByUsername("dian");
+        User user2 = userRepo.findByUsername("dieng");
+        List<User> users = new ArrayList<User>();
+        users.add(user);
+        users.add(user2);
+        Group group = new Group(Long.valueOf(21),"swipes","grup ini cuman grup final project",users,null);
+        List<Group> groups = Lists.newArrayList();
+        groups.add(group);
+        Mockito.when(groupRepo.save(group)).thenReturn(group);
+        Mockito.when(groupRepo.findByName("swipes")).thenReturn(group);
+    }
 
-        @Test
-        public void whenGroupPostUser_thenShouldReturnSuccess() throws Throwable {
-            GroupPostUserDTO groupDto = new GroupPostUserDTO(Long.valueOf(77),"test123");
-            assertEquals(groupServices.addUser(groupDto).getName(),"test123");
-        }
+    @Test
+    public void whenGroupPostUser_thenShouldReturnSuccess() throws Throwable {
+        GroupPostUserDTO groupDto = new GroupPostUserDTO(Long.valueOf(77),"test123");
+        assertEquals(groupServices.addUser(groupDto).getName(),"test123");
+    }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void whenGroupPostUser_thenShouldReturnNotFoundException() throws NotFoundException {
-            GroupPostUserDTO groupDto = new GroupPostUserDTO(Long.valueOf(77),"test");
-            expectedException.expect(NotFoundException.class);
-            groupServices.addUser(groupDto);
-        }
-
+    @Test(expected = IllegalArgumentException.class)
+    public void whenGroupPostUser_thenShouldReturnNotFoundException() throws NotFoundException {
+        GroupPostUserDTO groupDto = new GroupPostUserDTO(Long.valueOf(77),"test");
+        expectedException.expect(NotFoundException.class);
+        groupServices.addUser(groupDto);
     }
 
 
