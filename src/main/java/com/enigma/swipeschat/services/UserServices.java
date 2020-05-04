@@ -53,7 +53,6 @@ public class UserServices {
         if(user==null){
             throw new NotFoundException("account not found");
         }
-        System.out.println(user.toString());
         return new UserGetDTO(user.getId(),user.getEmail(),user.getUsername(),user.getFullName());
     }
 

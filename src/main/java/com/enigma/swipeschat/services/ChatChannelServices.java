@@ -43,11 +43,6 @@ public class ChatChannelServices {
     @Autowired
     ChatChannelRepository chatChannelRepository;
 
-
-    //////////////////////////////////////////////////////////////////////
-    ///Functions
-    /////////////////////////////////////////////////////////////////////
-
     public void checkUser(String user){
         UserGetDTO check = userServices.getUser(user);
         if(check == null){
@@ -55,10 +50,6 @@ public class ChatChannelServices {
         }
 
     }
-
-    //////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////
-
     public List<ChatChannel> getListFriends(String username){
         checkUser(username);
         User query = userRepository.findByUsername(username);

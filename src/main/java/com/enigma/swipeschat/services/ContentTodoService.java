@@ -34,13 +34,9 @@ public class ContentTodoService {
 
     public ContentTodo update(ContentTodo con) throws BadRequestException {
         ContentTodo cont = repo.getById(con.getId());
-//		if(cont == null) {
-//			return repo.save(con);
-//		}else {
         contentTodoNotExist(cont.getId());
         setContentAndCentang(cont, con);
         return repo.saveAndFlush(cont);
-//		}
 
     }
 

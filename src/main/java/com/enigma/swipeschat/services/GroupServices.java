@@ -79,7 +79,6 @@ public class GroupServices {
         }
         List<User> userList = group.getUser();
         userList.remove(user);
-        System.out.println(userList);
         groupRepository.save(new Group(group.getId(),group.getName(),group.getDescription(),userList,null));
         return new Group(group.getId(),group.getName(),group.getDescription(),userList,null);
     }
