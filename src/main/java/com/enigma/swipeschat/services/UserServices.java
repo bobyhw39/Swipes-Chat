@@ -1,8 +1,6 @@
 package com.enigma.swipeschat.services;
 
-import com.enigma.swipeschat.dto.UserDeleteFriendsDTO;
 import com.enigma.swipeschat.dto.UserGetDTO;
-import com.enigma.swipeschat.dto.UserPostFriendsDTO;
 import com.enigma.swipeschat.entity.User;
 import com.enigma.swipeschat.entity.Group;
 import com.enigma.swipeschat.repository.UserRepository;

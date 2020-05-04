@@ -51,14 +51,12 @@ public class UserServicesTest {
 
     @Before
     public void setUp(){
-        //////////Fake Data //////////////////////////////////////////////////////////////////////////////////////////////////////
 
         User user = new User(Long.valueOf(69l),"test@email.com","test","testpw","test halo",null);
 
         List<User> listest = Lists.newArrayList();
         listest.add(user);
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Mockito.when(userRepository.findByUsername("test")).thenReturn(user);
     }

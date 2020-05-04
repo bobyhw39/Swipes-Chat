@@ -1,7 +1,6 @@
 package com.enigma.swipeschat;
 
 import com.enigma.swipeschat.dto.UserGetDTO;
-import com.enigma.swipeschat.dto.UserPostDTO;
 import com.enigma.swipeschat.entity.ChatChannel;
 import com.enigma.swipeschat.entity.User;
 import com.enigma.swipeschat.repository.ChatChannelRepository;

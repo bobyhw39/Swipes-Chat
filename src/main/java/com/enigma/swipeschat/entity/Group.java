@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 
 
 @AllArgsConstructor
-//@NoArgsConstructor
 @Entity
 @Table(name = "tbl_group")
 public class Group {

@@ -2,13 +2,11 @@ package com.enigma.swipeschat.services;
 
 import com.enigma.swipeschat.dto.UserGetDTO;
 import com.enigma.swipeschat.entity.ChatMessage;
-import com.enigma.swipeschat.entity.User;
 import com.enigma.swipeschat.entity.Group;
 import com.enigma.swipeschat.exceptions.NotFoundException;
 import com.enigma.swipeschat.repository.ChatRepository;
 import com.enigma.swipeschat.repository.GroupRepository;
 import com.google.common.annotations.GwtCompatible;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -40,10 +38,6 @@ public class ChatMessageServices {
     @Autowired
     UserServices userServices;
 
-    //////////////////////////////////////////////////////////////////////
-    ///Functions
-    /////////////////////////////////////////////////////////////////////
-
     public void checkUser(String user){
         UserGetDTO check = userServices.getUser(user);
         if(check == null){
@@ -52,8 +46,6 @@ public class ChatMessageServices {
 
     }
 
-    //////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////
     public void saveChat(ChatMessage chatMessage){
         chatRepository.save(chatMessage);
     }
@@ -83,12 +75,4 @@ public class ChatMessageServices {
         List<ChatMessage> nx = chatRepository.findAll(username);
         return nx;
     }
-
-
-    public Set<SimpUser> getUsers() {
-        return userRegistry.getUsers();
-    }
-
-
-
 }

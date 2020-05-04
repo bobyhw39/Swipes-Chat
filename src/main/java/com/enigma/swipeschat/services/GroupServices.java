@@ -3,7 +3,6 @@ package com.enigma.swipeschat.services;
 import com.enigma.swipeschat.dto.UserGetDTO;
 import com.enigma.swipeschat.exceptions.NotFoundException;
 import com.google.common.annotations.GwtCompatible;
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -63,12 +63,6 @@ public class EventServicesTest {
         assertEquals(event, serv.getAllList());
     }
 
-//    @Test
-//    public void whenGetById_thenReturnEvent() {
-//        Events evt = serv.getById((long) 1);
-//        assertEquals(evt.getId(), 1l);
-//    }
-
     @Test
     public void whenCreate_thenReturnEvents() {
         User user = new User(2l, "a@mail.com", "a", "1234", "aang",null);

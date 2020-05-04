@@ -1,9 +1,7 @@
 package com.enigma.swipeschat.controller;
 
-import com.enigma.swipeschat.dto.UserDeleteFriendsDTO;
 import com.enigma.swipeschat.dto.UserGetDTO;
 import com.enigma.swipeschat.dto.UserPostDTO;
-import com.enigma.swipeschat.dto.UserPostFriendsDTO;
 import com.enigma.swipeschat.dto.UserPostGroupDTO;
 import com.enigma.swipeschat.services.UserServices;
 import io.swagger.annotations.Api;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.enigma.swipeschat.exceptions.ErrorDetails;
 import com.enigma.swipeschat.dto.UserPostLoginDTO;
-import com.enigma.swipeschat.entity.User;
 
 import javax.validation.Valid;
 import java.sql.Date;

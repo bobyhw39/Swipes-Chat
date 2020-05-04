@@ -41,24 +41,8 @@ public class User {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "user")
-//    private List<Events> events;
-
-
-//    @ManyToMany(cascade={CascadeType.ALL})
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "user_has_friends",
-//            joinColumns = { @JoinColumn(name = "id") },
-//            inverseJoinColumns = { @JoinColumn(name = "id_friends") }
-//    )
-//    private List<User> friends;
-
-
     @ManyToMany(mappedBy = "user")
     private List<Group> groups;
-
 
     public Long getId() {
         return id;
