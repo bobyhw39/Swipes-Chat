@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.enigma</groupId>
     <artifactId>swipeschat</artifactId>
-    <version>1.0-RELEASE</version>
+    <version>1.0-SNAPSHOT</version>
     <name>swipeschat</name>
     <description>Project SwipesChat</description>
 
@@ -26,10 +26,10 @@
     </pluginRepositories>
 
     <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://10.10.11.6/repository/maven-releases/</url>
-        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://10.10.11.6/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <dependencies>
