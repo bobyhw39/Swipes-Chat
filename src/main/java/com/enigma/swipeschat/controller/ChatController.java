@@ -77,7 +77,6 @@ public class ChatController {
     public void sendMessage(@DestinationVariable String to, ChatMessage message) {
             simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
             chatMessageServices.saveChat(message);
-
     }
 
     @MessageMapping("/addPrivateUser")

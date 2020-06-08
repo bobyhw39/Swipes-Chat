@@ -1,17 +1,23 @@
-version: '3.7'
-service:
-  Swipes-Chat:
-    environment:
-      - CONTEXT-PATH=/blavl
-      - PORT=8080
-      - DRIVER=com.mysql.jdbc.Driver
-      - DB_URL=jdbc::mysql://ipaddress:3306/namadb?autoReconnect=true&useSSL=false
-      - DB_USER=root
-      - DB_PASS=password
-    image: namaimage
-    build:
-      context: ./
-      dockerFile: Dockerfile
-    ports:
-      - "9001:8282"
+version: "3"
+volumes:
+  uploads:
+    external: false
+  database:
+    external: false
+networks:
+  services: {}
+services:
+  api-service:
+    image: swipeschat-api:latest
     restart: always
+    ports:
+      - 3939:3939
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://10.10.11.9:3306/db_percobaan?useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: swipes3cr3t
+    volumes:
+      - uploads:/uploads
+    networks:
+      - services
