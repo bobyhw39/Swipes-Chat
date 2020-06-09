@@ -8,7 +8,7 @@ networks:
   services: {}
 services:
   api-service:
-    image: swipeschat-api:latest
+    image: enigmacamp/izmi/swipeschat-api:latest
     restart: always
     ports:
       - 3939:3939
